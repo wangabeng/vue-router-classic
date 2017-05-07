@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<style>
+
+</style>
+</head>
+<script src='https://unpkg.com/vue@2.3.2/dist/vue.js'></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script>
+window.onload=function(){
+	const Foo={
+		template:`
+			<div>This is foo</div>
+		`
+	};
+	const User={
+		template:`
+			<div>
+				<div>This is user info</div>
+				<ul>
+					<li>
+						<router-link to='/user/abeng/age/10'>abeng</router-link>
+					</li>
+					<li>
+						<router-link to='/user/youyou/age/20'>youyou</router-link>
+					</li>
+					<li>
+						<router-link to='/user/dodo/age/30'>dodo</router-link>
+					</li>
+					<div>
+						<router-view></router-view>
+					</div>
+				</ul>
+			</div>
+		`
+	};
+	const username={
+		template:`
+			<div>wo {{$route.params}}</div>
+		`
+	}
+	const routes=[
+		{
+			path:'/foo',
+			component:Foo
+		},{
+			path:'/user',
+			component:User,
+			children:[{
+				path:':username/age/:age',
+				component:username
+			}]
+		},{
+			path:'',//设置重定向
+			redirect:'/foo'
+		}
+	];
+
+	const router=new VueRouter({
+		// mode:'history',//切换路径模式，变成history模式,不然路径为/#/home
+		routes:routes
+	});
+	const app=new Vue({
+		router:router
+	}).$mount('#box');
+};
+
+</script>
+<body>
+
+<div id='box'>
+	<router-link to='/foo'>Foo</router-link>
+	<router-link to='/user'>user</router-link>
+	<router-view></router-view>
+</div>
+
+</body>
+</html>
