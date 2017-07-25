@@ -11,6 +11,7 @@
 <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 <script>
 window.onload=function(){
+	// 1 定义组件
 	const Foo={
 		template:`
 			<div>This is foo</div>
@@ -42,6 +43,8 @@ window.onload=function(){
 			<div>wo {{$route.params}}</div>
 		`
 	}
+
+	// 2 配置路由
 	const routes=[
 		{
 			path:'/foo',
@@ -59,10 +62,13 @@ window.onload=function(){
 		}
 	];
 
+	// 3 生成路由实例
 	const router=new VueRouter({
 		// mode:'history',//切换路径模式，变成history模式,不然路径为/#/home
 		routes:routes
 	});
+
+	// 4 挂载到vue上
 	const app=new Vue({
 		router:router
 	}).$mount('#box');
